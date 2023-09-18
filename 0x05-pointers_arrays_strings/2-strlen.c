@@ -1,19 +1,17 @@
 #include "main.h"
 #include <stdio.h>
 /**
- * _puts - Print a string, followed by a new line, to stdout.
- * @str: Type char pointer
+ * _strlen - Returns the lenght of a string.
+ * @s: Type char pointer
  * Return: Always 0.
  */
-void _puts(char *str)
+int _strlen(char *s)
 {
-	int a;
-	int let;
+	int c;
 
-	for (a = 0; str[a] != 0; a++)
+	for (c = 0; s[c] != 0; c++)
 	{
-		let = str[a];
-		_putchar(let);
 	}
-	_putchar('\n');
+		return (c);
+
 }
