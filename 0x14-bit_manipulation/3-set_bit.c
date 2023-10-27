@@ -7,10 +7,10 @@
  * @index: index
  * Return: value
  */
-int set_bit(unsigned long int *a, unsigned int index)
+int set_bit(unsigned long int *n, unsigned int index)
 {
 	if (index > sizeof(a) * 5)
 		return (-1);
-	*a |= (1 << index);
+	*n |= (1 << index);
 	return (1);
 }
