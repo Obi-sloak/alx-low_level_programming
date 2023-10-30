@@ -6,35 +6,47 @@
 #include <unistd.h>
 
 /**
- * append_text_to_file - Appends text to the end of a file.
+ * _strlen - Calculates the length of a string.
+ * @str: Pointer to the string.
  *
- * @filename: A pointer to the name of the file.
- * @text_content: The string to add to the end of the file.
+ * Return: The length of the string.
+ */
+size_t _strlen(char *str)
+{
+    size_t length = 0;
+
+    while (str[length])
+        length++;
+
+    return length;
+}
+
+/**
+ * append_text_to_file - Appends text at the end of a file.
+ * @filename: Name of the file.
+ * @text_content: Null-terminated string to append to the file.
  *
- * Return: If the function fails or filename is NULL - -1.
- *         If the file does not exist or the user lacks write permissions - -1.
- *         Otherwise - 1.
+ * Return: 1 on success, -1 on failure.
  */
 int append_text_to_file(const char *filename, char *text_content)
 {
-    int file_descriptor, write_result, text_length = 0;
+    int fd;
+    ssize_t len = 0;
 
     if (filename == NULL)
         return (-1);
 
-    if (text_content != NULL)
-    {
-        for (text_length = 0; text_content[text_length]; text_length++)
-            ;
-    }
-
-    file_descriptor = open(filename, O_WRONLY | O_APPEND);
-    write_result = write(file_descriptor, text_content, text_length);
-
-    if (file_descriptor == -1 || write_result == -1)
+    fd = open(filename, O_WRONLY | O_APPEND);
+    if (fd == -1)
         return (-1);
 
-    close(file_descriptor);
+    if (text_content != NULL)
+        len = write(fd, text_content, _strlen(text_content));
+
+    close(fd);
+
+    if (len == -1)
+        return (-1);
 
     return (1);
 }
